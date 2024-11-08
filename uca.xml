@@ -1,0 +1,97 @@
+<!-- config by zyf2007 start -->
+
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1730183074344637-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>edit-copy</icon>
+	<name>复制完整路径</name>
+	<submenu>复制</submenu>
+	<unique-id>1730353789750786-1</unique-id>
+	<command>echo %F | xsel --clipboard</command>
+	<description>复制完整路径 包括绝对目录和文件名，扩展名</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>folder-documents</icon>
+	<name>移入子目录</name>
+	<submenu></submenu>
+	<unique-id>1730623697818692-1</unique-id>
+	<command>
+newdir=$(zenity --entry --text=输入文件夹名称)
+if [ -e &quot;./$newdir&quot; ]
+then
+  echo e &gt;&gt; ./test.txt
+  count=0
+  while [ -e &quot;./$newdir-$count&quot; ]
+  do
+    count=$((count+1))
+  done
+  newdir=&quot;$newdir-$count&quot;
+else
+  echo $newdir &gt;&gt; ./test.txt
+fi
+
+mkdir &quot;$(dirname %f)/$newdir&quot;
+mv %F &quot;$(dirname %f)/$newdir&quot;
+</command>
+	<description>将选中的文件剪切到新建的目录</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>system-search</icon>
+	<name>启动Fsearch</name>
+	<submenu>启动</submenu>
+	<unique-id>1731064112876993-1</unique-id>
+	<command>fsearch -s %d</command>
+	<description>在当前目录启动Fsearch</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>filelight</icon>
+	<name>启动Filelight</name>
+	<submenu>启动</submenu>
+	<unique-id>1731064217606632-2</unique-id>
+	<command>filelight ./</command>
+	<description>在当前目录启动Filelight</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+
+<!-- config by zyf2007 end -->
