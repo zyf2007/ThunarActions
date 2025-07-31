@@ -34,22 +34,20 @@
 	<submenu></submenu>
 	<unique-id>1730623697818692-1</unique-id>
 	<command>
-newdir=$(zenity --entry --text=输入文件夹名称)
-if [ -e &quot;./$newdir&quot; ]
-then
-  echo e &gt;&gt; ./test.txt
-  count=0
-  while [ -e &quot;./$newdir-$count&quot; ]
-  do
-    count=$((count+1))
-  done
-  newdir=&quot;$newdir-$count&quot;
-else
-  echo $newdir &gt;&gt; ./test.txt
-fi
+      newdir=$(zenity --entry --text=输入文件夹名称)
+      if [ -e &quot;./$newdir&quot; ]
+      then
+      count=0
+      while [ -e &quot;./$newdir-$count&quot; ]
+      do
+      count=$((count+1))
+      done
+      newdir=&quot;$newdir-$count&quot;
+      else
+      fi
 
-mkdir &quot;$(dirname %f)/$newdir&quot;
-mv %F &quot;$(dirname %f)/$newdir&quot;
+      mkdir &quot;$(dirname %f)/$newdir&quot;
+      mv %F &quot;$(dirname %f)/$newdir&quot;
 </command>
 	<description>将选中的文件剪切到新建的目录</description>
 	<range>*</range>
@@ -87,6 +85,95 @@ mv %F &quot;$(dirname %f)/$newdir&quot;
 	<range>*</range>
 	<patterns>*</patterns>
 	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>sushi</name>
+	<submenu></submenu>
+	<unique-id>1731145029233957-1</unique-id>
+	<command>sushi %f;echo a &gt;&gt; ~/t.txt</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>wine</icon>
+	<name>Wine64</name>
+	<submenu>Wine</submenu>
+	<unique-id>1733551368475132-1</unique-id>
+	<command>env WINEPREFIX=/home/zyf/.local/share/wineprefixes/wine64 wine %f</command>
+	<description>Run With Wine64</description>
+	<range>*</range>
+	<patterns>*.exe</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>wine</icon>
+	<name>Wine32</name>
+	<submenu>Wine</submenu>
+	<unique-id>1733551451359389-2</unique-id>
+	<command>env WINEPREFIX=/home/zyf/.local/share/wineprefixes/wine32 wine %f</command>
+	<description>Run With Wine32</description>
+	<range>*</range>
+	<patterns>*.exe</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>virtualbox-vdi</icon>
+	<name>回收磁盘空间</name>
+	<submenu></submenu>
+	<unique-id>1733633876690153-1</unique-id>
+	<command>vboxmanage modifyhd %f --compact</command>
+	<description>vboxmanage modifyhd --compact</description>
+	<range>*</range>
+	<patterns>*.vdi</patterns>
+	<other-files/>
+</action>
+<action>
+	<icon>code</icon>
+	<name>启动code</name>
+	<submenu>启动</submenu>
+	<unique-id>1745506094066282-1</unique-id>
+	<command>code %d</command>
+	<description>vscode</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>ENCRYPTIC</icon>
+	<name>checksum</name>
+	<submenu></submenu>
+	<unique-id>1753934983434324-1</unique-id>
+	<command>filename=%n
+
+md5=$(md5sum &quot;$filename&quot; | awk &apos;{print $1}&apos;)
+sha1=$(sha1sum &quot;$filename&quot; | awk &apos;{print $1}&apos;)
+sha256=$(sha256sum &quot;$filename&quot; | awk &apos;{print $1}&apos;)
+sha512=$(sha512sum &quot;$filename&quot; | awk &apos;{print $1}&apos;)
+
+checksum_info=&quot;文件: $filename\n\n校验和信息:\n\n&quot;
+checksum_info+=&quot;MD5:       $md5\n&quot;
+checksum_info+=&quot;SHA-1:     $sha1\n&quot;
+checksum_info+=&quot;SHA-256:   $sha256\n&quot;
+checksum_info+=&quot;SHA-512:   $sha512\n&quot;
+
+zenity --info --width=600 --height=400 --title=&quot;文件校验和信息&quot; --text=&quot;$checksum_info&quot;
+</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
 	<audio-files/>
 	<image-files/>
 	<other-files/>
